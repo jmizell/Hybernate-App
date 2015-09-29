@@ -1,5 +1,7 @@
 package net.ottercove.hybernate;
 
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -42,7 +44,8 @@ public class ManagedAppShortcut extends ActionBarActivity {
 
                 BitmapDrawable bitmapIcon = (BitmapDrawable) itemValue.getIcon();
 
-                Intent targetIntent = new Intent(getApplicationContext(), net.ottercove.hybernate.LaunchActivity.class);
+                Intent targetIntent = new Intent(getApplicationContext(),
+                        net.ottercove.hybernate.LaunchActivity.class);
                 targetIntent.putExtra(LaunchAppService.NAME, itemValue.getAppPackage());
                 targetIntent.putExtra(LaunchAppService.TITLE, itemValue.getTitle());
 
@@ -51,6 +54,26 @@ public class ManagedAppShortcut extends ActionBarActivity {
                 shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, itemValue.getTitle());
                 shortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmapIcon.getBitmap());
                 setResult(RESULT_OK, shortcutIntent);
+
+                Context context = getApplicationContext();
+                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                ManagedApp managedapp = new ManagedApp(itemValue.getAppPackage(),
+                        itemValue.getTitle());
+
+                if (managedapp.disableApp()) {
+                    SendNotification.SingleNotification("Disabled " + itemValue.getTitle(),
+                            "Disabled " + itemValue.getTitle(),
+                            "App was disabled.",
+                            notificationManager,
+                            context);
+                } else {
+                    SendNotification.SingleNotification("Failed to disable " + itemValue.getTitle(),
+                            "Failed to disable " + itemValue.getTitle(),
+                            "App was not disabled.",
+                            notificationManager,
+                            context);
+                }
+
                 finish();
             }
         });

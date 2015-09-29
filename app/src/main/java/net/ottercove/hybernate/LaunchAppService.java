@@ -31,7 +31,9 @@ public class LaunchAppService extends IntentService {
             final String appTitle = intent.getStringExtra(TITLE);
 
             if (RootStuff.isRooted() && RootStuff.rootGiven()) {
-                ManagedApp app = new ManagedApp(appName, appTitle, notificationManager, context);
+                ManagedApp app = new ManagedApp(appName, appTitle);
+                app.setNotificationManager(notificationManager);
+                app.setContext(context);
 
                 if (app.launchManaged()) {
                     SendNotification.SingleNotification("Launched " + appTitle,

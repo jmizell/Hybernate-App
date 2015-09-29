@@ -2,6 +2,7 @@ package net.ottercove.hybernate;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.util.Log;
 
 import org.threadly.concurrent.PriorityScheduler;
 import org.threadly.concurrent.SchedulerService;
@@ -20,11 +21,9 @@ public class ManagedApp {
     private Context context;
 
     public ManagedApp(String appName,
-                      String appTitle,
-                      NotificationManager notificationManager,
-                      Context context) {
-        this.notificationManager = notificationManager;
-        this.context = context;
+                      String appTitle) {
+        this.notificationManager = null;
+        this.context = null;
         this.appName = appName;
         this.appTitle = appTitle;
     }
@@ -39,6 +38,14 @@ public class ManagedApp {
 
     public NotificationManager getNotificationManager() {
         return this.notificationManager;
+    }
+
+    public void setNotificationManager(NotificationManager notificationManager) {
+        this.notificationManager = notificationManager;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 
     public Boolean enableApp() {
@@ -61,7 +68,7 @@ public class ManagedApp {
 
     public Boolean launchManaged() {
         if (this.enableApp() && this.launchApp()) {
-            LaunchManagedApp app = new LaunchManagedApp(this);
+            LaunchManagedApp app = new LaunchManagedApp();
             app.start();
             return true;
         } else {
@@ -71,12 +78,10 @@ public class ManagedApp {
 
     private class LaunchManagedApp extends AbstractService {
         private checkRunning updateRunner;
-        private ManagedApp managedApp;
         private SchedulerService ssi;
 
-        public LaunchManagedApp(ManagedApp managedApp) {
-            this.managedApp = managedApp;
-            this.updateRunner = new checkRunning(managedApp.getAppName());
+        public LaunchManagedApp() {
+            this.updateRunner = new checkRunning(appName);
             this.ssi = new PriorityScheduler(2, true);
         }
 
@@ -84,24 +89,27 @@ public class ManagedApp {
         protected void shutdownService() {
             ssi.remove(updateRunner);
 
-            if (managedApp.disableApp()) {
+            if (disableApp() && notificationManager != null && context != null) {
                 SendNotification.SingleNotification("Disabled " + appTitle,
                         "Disabled " + appTitle,
                         "App was disabled.",
-                        managedApp.getNotificationManager(),
-                        managedApp.getContext());
-            } else {
+                        notificationManager,
+                        context);
+
+            } else if (notificationManager != null && context!= null) {
                 SendNotification.SingleNotification("Disabled " + appTitle,
                         "Disabled " + appTitle,
                         "Failed to disable app.",
-                        managedApp.getNotificationManager(),
-                        managedApp.getContext());
+                        notificationManager,
+                        context);
+
+            } else {
+                Log.println(Log.DEBUG, "ManagedApp.class", "Failed to disable " + appTitle);
             }
         }
 
         @Override
         protected void startupService() {
-
             ssi.scheduleAtFixedRate(updateRunner, TimeUnit.SECONDS.toMillis(5), TimeUnit.SECONDS.toMillis(1));
         }
 
