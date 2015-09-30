@@ -46,6 +46,7 @@ public class ManagedAppShortcut extends ActionBarActivity {
 
                 Intent targetIntent = new Intent(getApplicationContext(),
                         net.ottercove.hybernate.LaunchActivity.class);
+                targetIntent.setAction(LaunchAppService.LAUNCH);
                 targetIntent.putExtra(LaunchAppService.NAME, itemValue.getAppPackage());
                 targetIntent.putExtra(LaunchAppService.TITLE, itemValue.getTitle());
 

@@ -16,11 +16,13 @@ public class LaunchActivity extends ActionBarActivity {
         Intent intent = getIntent();
         String appName = intent.getStringExtra(LaunchAppService.NAME);
         String appTitle = intent.getStringExtra(LaunchAppService.TITLE);
+        String action = intent.getAction();
 
         TextView tv1 = (TextView)findViewById(R.id.launch_message);
         tv1.setText("Launching " + appName);
 
         Intent launch = new Intent(this, LaunchAppService.class);
+        launch.setAction(action);
         launch.putExtra(LaunchAppService.NAME, appName);
         launch.putExtra(LaunchAppService.TITLE, appTitle);
         context.startService(launch);

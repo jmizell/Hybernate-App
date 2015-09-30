@@ -1,7 +1,9 @@
 package net.ottercove.hybernate;
 
 import android.app.NotificationManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import org.threadly.concurrent.PriorityScheduler;
@@ -30,6 +32,10 @@ public class ManagedApp {
 
     public String getAppName() {
         return this.appName;
+    }
+
+    public String getAppTitle() {
+        return this.appTitle;
     }
 
     public Context getContext() {
@@ -61,9 +67,13 @@ public class ManagedApp {
     }
 
     public Boolean launchApp() {
-        String command = "monkey -p " + this.appName + " -c android.intent.category.LAUNCHER 1";
-        Object[] result = RootStuff.runCommand(command);
-        return (Integer) result[0] == 0;
+        try {
+            Intent LaunchIntent = context.getPackageManager().getLaunchIntentForPackage(appName);
+            context.startActivity( LaunchIntent );
+            return true;
+        } catch (ActivityNotFoundException e) {
+            return false;
+        }
     }
 
     public Boolean launchManaged() {
