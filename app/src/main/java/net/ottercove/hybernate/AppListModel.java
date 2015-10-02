@@ -9,6 +9,7 @@ public class AppListModel implements Comparable<AppListModel> {
     private Drawable icon;
     private String title;
     private String appPackage;
+    private Boolean systemApp;
 
     private boolean isGroupHeader = false;
 
@@ -17,6 +18,7 @@ public class AppListModel implements Comparable<AppListModel> {
         this.icon = icon;
         this.title = title;
         this.appPackage = appPackage;
+        this.systemApp = false;
     }
 
     public Drawable getIcon() {
@@ -41,6 +43,14 @@ public class AppListModel implements Comparable<AppListModel> {
 
     public void setAppPackage(String appPackage) {
         this.appPackage = appPackage;
+    }
+
+    public void setSystemApp(Boolean systemApp) {
+        this.systemApp = systemApp;
+    }
+
+    public Boolean getSystemApp() {
+        return this.systemApp;
     }
 
     @Override

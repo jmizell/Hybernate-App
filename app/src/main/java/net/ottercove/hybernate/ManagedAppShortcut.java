@@ -1,6 +1,5 @@
 package net.ottercove.hybernate;
 
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -57,24 +56,20 @@ public class ManagedAppShortcut extends ActionBarActivity {
                 setResult(RESULT_OK, shortcutIntent);
 
                 Context context = getApplicationContext();
-                NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
                 ManagedApp managedapp = new ManagedApp(itemValue.getAppPackage(),
                         itemValue.getTitle());
 
-                if (managedapp.disableApp()) {
-                    SendNotification.SingleNotification("Disabled " + itemValue.getTitle(),
-                            "Disabled " + itemValue.getTitle(),
-                            "App was disabled.",
-                            notificationManager,
-                            context);
+                if (managedapp.disableApp()) {;
+                    AppNotificationService.sendDisableNotification(context,
+                            itemValue.getAppPackage(),
+                            itemValue.getTitle(),
+                            true);
                 } else {
-                    SendNotification.SingleNotification("Failed to disable " + itemValue.getTitle(),
-                            "Failed to disable " + itemValue.getTitle(),
-                            "App was not disabled.",
-                            notificationManager,
-                            context);
+                    AppNotificationService.sendDisableNotification(context,
+                            itemValue.getAppPackage(),
+                            itemValue.getTitle(),
+                            false);
                 }
-
                 finish();
             }
         });
@@ -101,7 +96,13 @@ public class ManagedAppShortcut extends ActionBarActivity {
             ApplicationInfo app = pm.getApplicationInfo(packageName, 0);
             Drawable icon = pm.getApplicationIcon(app);
             String appName = (String) pm.getApplicationLabel(app);
-            return new AppListModel(icon, appName, packageName);
+            AppListModel appModel = new AppListModel(icon, appName, packageName);
+
+            if((app.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                appModel.setSystemApp(true);
+            }
+
+            return appModel;
         } catch (PackageManager.NameNotFoundException e) {
             return null;
         }
