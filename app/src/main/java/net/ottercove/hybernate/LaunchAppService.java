@@ -19,7 +19,7 @@ public class LaunchAppService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         context = getApplicationContext();
-//        AppCleanupServices.cleanApplications(this);
+        AppCleanupServices.cleanApplications(this);
 
         if (intent != null) {
             final String appName = intent.getStringExtra(NAME);
@@ -49,7 +49,7 @@ public class LaunchAppService extends IntentService {
                     app.getAppName(),
                     app.getAppTitle(),
                     true);
-//            AppCleanupServices.addApplication(this, app.getAppName());
+            AppCleanupServices.addApplication(this, app.getAppName());
         } else {
             AppNotificationService.sendLaunchNotification(context,
                     app.getAppName(),
@@ -64,7 +64,7 @@ public class LaunchAppService extends IntentService {
                     app.getAppName(),
                     app.getAppTitle(),
                     true);
-//            AppCleanupServices.delApplication(this, app.getAppName());
+            AppCleanupServices.delApplication(this, app.getAppName());
         } else {
             AppNotificationService.sendDisableNotification(context,
                     app.getAppName(),

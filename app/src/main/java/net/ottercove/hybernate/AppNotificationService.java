@@ -21,6 +21,7 @@ public class AppNotificationService extends IntentService {
     public static final String NAME = "net.ottercove.hybernate.extra.NAME";
     public static final String TITLE = "net.ottercove.hybernate.extra.TITLE";
     public static final String SUCCESS = "net.ottercove.hybernate.extra.SUCCESS";
+    private static final String SINGLE = "single_message";
     private NotificationManager notificationManager;
 
     public static void sendDisableNotification(Context context,
@@ -59,9 +60,10 @@ public class AppNotificationService extends IntentService {
         if (intent != null) {
             final String action = intent.getAction();
             if (DISABLE_NOTIFICATION.equals(action)) {
+                final String name = intent.getStringExtra(NAME);
                 final String title = intent.getStringExtra(TITLE);
                 final Boolean success = intent.getBooleanExtra(SUCCESS, true);
-                disableNotification(title, success);
+                disableNotification(name, title, success);
             } else if (LAUNCH_NOTIFICATION.equals(action)) {
                 final String name = intent.getStringExtra(NAME);
                 final String title = intent.getStringExtra(TITLE);
@@ -72,7 +74,7 @@ public class AppNotificationService extends IntentService {
         this.stopSelf();
     }
 
-    private void disableNotification(String title, Boolean success) {
+    private void disableNotification(String name, String title, Boolean success) {
         if(success) {
             Notification notification = new NotificationCompat.Builder(this)
                     .setTicker("Disabled " + title)
@@ -82,8 +84,9 @@ public class AppNotificationService extends IntentService {
                     .setAutoCancel(true)
                     .build();
 
-            notificationManager.cancel(0);
-            notificationManager.notify(0, notification);
+            notificationManager.cancel(SINGLE, 0);
+            notificationManager.cancel(name, 0);
+            notificationManager.notify(SINGLE, 0, notification);
         } else {
             Notification notification = new NotificationCompat.Builder(this)
                     .setTicker("Failed to disable " + title)
@@ -93,8 +96,9 @@ public class AppNotificationService extends IntentService {
                     .setAutoCancel(true)
                     .build();
 
-            notificationManager.cancel(0);
-            notificationManager.notify(0, notification);
+            notificationManager.cancel(SINGLE, 0);
+            notificationManager.cancel(name, 0);
+            notificationManager.notify(SINGLE, 0, notification);
         }
     }
 
@@ -115,8 +119,7 @@ public class AppNotificationService extends IntentService {
                     .setAutoCancel(true)
                     .build();
 
-            int id = (int) System.currentTimeMillis() / 1000;
-            notificationManager.notify(id, notification);
+            notificationManager.notify(name, 0, notification);
         } else {
             Notification notification = new NotificationCompat.Builder(this)
                     .setTicker("Failed to launch " + title)
@@ -126,8 +129,8 @@ public class AppNotificationService extends IntentService {
                     .setAutoCancel(true)
                     .build();
 
-            notificationManager.cancel(0);
-            notificationManager.notify(0, notification);
+            notificationManager.cancel(SINGLE, 0);
+            notificationManager.notify(SINGLE, 0, notification);
         }
     }
 }
