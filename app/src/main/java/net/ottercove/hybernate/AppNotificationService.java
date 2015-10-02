@@ -108,7 +108,8 @@ public class AppNotificationService extends IntentService {
             disable.setAction(LaunchAppService.DISABLE);
             disable.putExtra(LaunchAppService.NAME, name);
             disable.putExtra(LaunchAppService.TITLE, title);
-            PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, disable, 0);
+            int id = (int) System.currentTimeMillis() / 1000;
+            PendingIntent pendingIntent = PendingIntent.getActivity(this, id, disable, 0);
 
             Notification notification = new NotificationCompat.Builder(this)
                     .setContentIntent(pendingIntent)
