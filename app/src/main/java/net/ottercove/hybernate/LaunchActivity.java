@@ -18,14 +18,17 @@ public class LaunchActivity extends ActionBarActivity {
         String appTitle = intent.getStringExtra(LaunchAppService.TITLE);
         String action = intent.getAction();
 
-        TextView tv1 = (TextView)findViewById(R.id.launch_message);
-        tv1.setText("Launching " + appName);
-
         Intent launch = new Intent(this, LaunchAppService.class);
         launch.setAction(action);
         launch.putExtra(LaunchAppService.NAME, appName);
         launch.putExtra(LaunchAppService.TITLE, appTitle);
         context.startService(launch);
-        finish();
+
+        TextView tv1 = (TextView)findViewById(R.id.launch_message);
+        if(action == LaunchAppService.DISABLE) {
+            tv1.setText("Disabling " + appTitle);
+        } else {
+            tv1.setText("Launching " + appName);
+        }
     }
 }

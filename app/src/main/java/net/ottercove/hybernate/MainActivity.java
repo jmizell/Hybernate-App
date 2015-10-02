@@ -1,6 +1,5 @@
 package net.ottercove.hybernate;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.webkit.WebView;
@@ -15,7 +14,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Context context = getApplicationContext();
 
         WebView wv = new WebView(getApplicationContext());
         wv.getSettings().setJavaScriptEnabled(true);

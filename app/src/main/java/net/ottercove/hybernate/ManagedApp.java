@@ -1,6 +1,5 @@
 package net.ottercove.hybernate;
 
-import android.app.NotificationManager;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -12,19 +11,14 @@ import org.threadly.util.AbstractService;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * Created by ottah on 9/26/15.
- */
 public class ManagedApp {
     private String appName;
     private String appTitle;
     private PriorityScheduler scheduler = new PriorityScheduler(2, false);
-    private NotificationManager notificationManager;
     private Context context;
 
     public ManagedApp(String appName,
                       String appTitle) {
-        this.notificationManager = null;
         this.context = null;
         this.appName = appName;
         this.appTitle = appTitle;
@@ -40,14 +34,6 @@ public class ManagedApp {
 
     public Context getContext() {
         return this.context;
-    }
-
-    public NotificationManager getNotificationManager() {
-        return this.notificationManager;
-    }
-
-    public void setNotificationManager(NotificationManager notificationManager) {
-        this.notificationManager = notificationManager;
     }
 
     public void setContext(Context context) {
@@ -99,19 +85,17 @@ public class ManagedApp {
         protected void shutdownService() {
             ssi.remove(updateRunner);
 
-            if (disableApp() && notificationManager != null && context != null) {
-                SendNotification.SingleNotification("Disabled " + appTitle,
-                        "Disabled " + appTitle,
-                        "App was disabled.",
-                        notificationManager,
-                        context);
+            if (disableApp() && context != null) {
+                AppNotificationService.sendDisableNotification(context,
+                        appName,
+                        appTitle,
+                        true);
 
-            } else if (notificationManager != null && context!= null) {
-                SendNotification.SingleNotification("Disabled " + appTitle,
-                        "Disabled " + appTitle,
-                        "Failed to disable app.",
-                        notificationManager,
-                        context);
+            } else if (context!= null) {
+                AppNotificationService.sendDisableNotification(context,
+                        appName,
+                        appTitle,
+                        false);
 
             } else {
                 Log.println(Log.DEBUG, "ManagedApp.class", "Failed to disable " + appTitle);
