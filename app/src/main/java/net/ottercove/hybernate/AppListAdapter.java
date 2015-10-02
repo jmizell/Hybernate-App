@@ -40,7 +40,8 @@ public class AppListAdapter extends ArrayAdapter<AppListModel> {
         if(modelsArrayList.get(position).getSystemApp()) {
             titleView.setTypeface(null, Typeface.BOLD_ITALIC);
             titleView.setTextColor(Color.LTGRAY);
-            titleView.setText(modelsArrayList.get(position).getTitle() + " (System App)");
+            titleView.setText(modelsArrayList.get(position).getTitle() +
+                    context.getString(R.string.app_list_adapter_system));
         } else {
             titleView.setText(modelsArrayList.get(position).getTitle());
         }

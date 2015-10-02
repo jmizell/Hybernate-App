@@ -77,10 +77,10 @@ public class AppNotificationService extends IntentService {
     private void disableNotification(String name, String title, Boolean success) {
         if(success) {
             Notification notification = new NotificationCompat.Builder(this)
-                    .setTicker("Disabled " + title)
+                    .setTicker(getString(R.string.app_disabled_title) + title)
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Disabled " + title)
-                    .setContentText("The selected app was disabled.")
+                    .setContentTitle(getString(R.string.app_disabled_title) + title)
+                    .setContentText(getString(R.string.app_disabled_text))
                     .setAutoCancel(true)
                     .build();
 
@@ -89,10 +89,10 @@ public class AppNotificationService extends IntentService {
             notificationManager.notify(SINGLE, 0, notification);
         } else {
             Notification notification = new NotificationCompat.Builder(this)
-                    .setTicker("Failed to disable " + title)
+                    .setTicker(getString(R.string.app_disabled_failed_title) + title)
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Failed to disable " + title)
-                    .setContentText("The selected app was not disabled.")
+                    .setContentTitle(getString(R.string.app_disabled_failed_title) + title)
+                    .setContentText(getString(R.string.app_disabled_failed_text))
                     .setAutoCancel(true)
                     .build();
 
@@ -113,20 +113,20 @@ public class AppNotificationService extends IntentService {
 
             Notification notification = new NotificationCompat.Builder(this)
                     .setContentIntent(pendingIntent)
-                    .setTicker("Launched " + title)
+                    .setTicker(getString(R.string.app_launched_title) + title)
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Launched " + title)
-                    .setContentText("Click here to disable.")
+                    .setContentTitle(getString(R.string.app_launched_title) + title)
+                    .setContentText(getString(R.string.app_launched_text))
                     .setAutoCancel(true)
                     .build();
 
             notificationManager.notify(name, 0, notification);
         } else {
             Notification notification = new NotificationCompat.Builder(this)
-                    .setTicker("Failed to launch " + title)
+                    .setTicker(getString(R.string.app_launch_failed_title) + title)
                     .setSmallIcon(R.mipmap.ic_launcher)
-                    .setContentTitle("Failed to launch " + title)
-                    .setContentText("The selected app was not started.")
+                    .setContentTitle(getString(R.string.app_launch_failed_title) + title)
+                    .setContentText(getString(R.string.app_launch_failed_text))
                     .setAutoCancel(true)
                     .build();
 

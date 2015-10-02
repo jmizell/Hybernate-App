@@ -8,5 +8,14 @@
     <string name="title_activity_create_shortcut_header">Select app to hibernate.</string>
     <string name="title_activity_launch">Launch App</string>
     <string name="launch_message">Launching app...</string>
+    <string name="app_list_adapter_system"> (System App)</string>
+    <string name="app_disabled_title">Disabled </string>
+    <string name="app_disabled_text">The selected app was disabled.</string>
+    <string name="app_disabled_failed_title">Failed to disabled </string>
+    <string name="app_disabled_failed_text">The selected app was not disabled.</string>
+    <string name="app_launched_title">Launched </string>
+    <string name="app_launched_text">Tap here to disable app.</string>
+    <string name="app_launch_failed_title">Failed to launch </string>
+    <string name="app_launch_failed_text">The selected app was not started.</string>
 
 </resources>

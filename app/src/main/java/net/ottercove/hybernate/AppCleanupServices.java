@@ -106,7 +106,7 @@ public class AppCleanupServices extends IntentService {
     }
 
     private SharedPreferences getAppPreferences() {
-        SharedPreferences settings = getSharedPreferences("net.ottercove.hybernate", 0);
+        SharedPreferences settings = getSharedPreferences(APP_PREFKEY, 0);
         return settings;
     }
 
