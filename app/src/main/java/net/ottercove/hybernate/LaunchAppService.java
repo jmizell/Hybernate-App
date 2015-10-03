@@ -3,7 +3,6 @@ package net.ottercove.hybernate;
 import android.app.IntentService;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 public class LaunchAppService extends IntentService {
     public static final String LAUNCH = "net.ottercove.hybernate.extra.LAUNCH";
@@ -19,26 +18,23 @@ public class LaunchAppService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         context = getApplicationContext();
-        AppCleanupServices.cleanApplications(this);
 
-        if (intent != null) {
+        if (intent != null && CheckRootActivity.check()) {
+            AppCleanupServices.cleanApplications(this);
             final String appName = intent.getStringExtra(NAME);
             final String appTitle = intent.getStringExtra(TITLE);
             final String action = intent.getAction();
 
-            if (RootStuff.isRooted() && RootStuff.rootGiven()) {
-                ManagedApp app = new ManagedApp(appName, appTitle);
-                app.setContext(context);
+            ManagedApp app = new ManagedApp(appName, appTitle);
+            app.setContext(context);
 
-                if (LAUNCH.equals(action)) {
-                    launchApp(app);
-                } else if (DISABLE.equals(action)) {
-                    disableApp(app);
-                }
-            } else {
-                Toast toast = Toast.makeText(context, "No root!", Toast.LENGTH_SHORT);
-                toast.show();
+            if (LAUNCH.equals(action)) {
+                launchApp(app);
+            } else if (DISABLE.equals(action)) {
+                disableApp(app);
             }
+        } else {
+            CheckRootActivity.displayRootStatus(context);
         }
         this.stopSelf();
     }

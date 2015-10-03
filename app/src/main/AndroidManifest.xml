@@ -51,6 +51,11 @@
             android:name=".AppCleanupServices"
             android:exported="false" >
         </service>
+
+        <activity
+            android:name=".CheckRootActivity"
+            android:label="@string/title_activity_warning" >
+        </activity>
     </application>
 
 </manifest>

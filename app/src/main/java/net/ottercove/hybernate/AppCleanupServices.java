@@ -43,7 +43,7 @@ public class AppCleanupServices extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        if (intent != null) {
+        if (intent != null && CheckRootActivity.check()) {
             final String action = intent.getAction();
             if (ADD.equals(action)) {
                 final String name = intent.getStringExtra(NAME);
@@ -55,6 +55,7 @@ public class AppCleanupServices extends IntentService {
                 cleanAppAction();
             }
         }
+        this.stopSelf();
     }
 
     private void delAppAction(String name) {

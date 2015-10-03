@@ -17,5 +17,12 @@
     <string name="app_launched_text">Tap here to disable app.</string>
     <string name="app_launch_failed_title">Failed to launch </string>
     <string name="app_launch_failed_text">The selected app was not started.</string>
+    <string name="title_activity_warning">WarningActivity</string>
 
+    <string name="warning_root_text_true">root present</string>
+    <string name="warning_root_text_false">no root</string>
+    <string name="warning_root_given_text_true">root granted</string>
+    <string name="warning_root_given_text_false">root denied</string>
+    <string name="warning_pm_text_true">package manager present</string>
+    <string name="warning_pm_text_false">no package manager</string>
 </resources>
