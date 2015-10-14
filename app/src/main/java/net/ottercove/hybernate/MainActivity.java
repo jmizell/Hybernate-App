@@ -21,6 +21,8 @@ public class MainActivity extends ActionBarActivity {
         wv.addJavascriptInterface(new WebViewJSInterface(this), "hybernate");
         wv.loadUrl("file:///android_asset/welcome.html");
         setContentView(wv);
+
+
     }
 
     private void checkRoot() {

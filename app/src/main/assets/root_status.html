@@ -11,31 +11,33 @@
             document.getElementById('package_manager_message').innerHTML = package_manager_status;
         }
     </script>
+    <base href="file:///android_asset/" >
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<header>
-    <h1 id="header_message">Device Compatibility Status</h1>
-</header>
-<main>
-    <section id="compatibility">
-        <p id="compatibility_advisory">Your devices appears to not meet the minimum requirements. Please check below for details of what is missing.</p>
-    </section>
+    <header>
+        <h1 id="header_message">Device Compatibility Status</h1>
+    </header>
+    <main>
+        <section id="compatibility">
+            <p id="compatibility_advisory">Your devices appears to not meet the minimum requirements. Please check below for details of what is missing.</p>
+        </section>
 
-    <section id="root">
-        <h3 id="root_title">Device Root</h3>
-        <p id="root_message">An error occurred, unable to set message.</p>
-    </section>
+        <section id="root">
+            <h3 id="root_title">Device Root</h3>
+            <p id="root_message">An error occurred, unable to set message.</p>
+        </section>
 
-    <section id="permission">
-        <h3 id="permission_title">Root Access</h3>
-        <p id="permission_message">An error occurred, unable to set message.</p>
-    </section>
+        <section id="permission">
+            <h3 id="permission_title">Root Access</h3>
+            <p id="permission_message">An error occurred, unable to set message.</p>
+        </section>
 
-    <section id="package_manager">
-        <h3 id="package_manager_title">Package Manager</h3>
-        <p id="package_manager_message">An error occurred, unable to set message.</p>
-    </section>
-</main>
-<footer></footer>
+        <section id="package_manager">
+            <h3 id="package_manager_title">Package Manager</h3>
+            <p id="package_manager_message">An error occurred, unable to set message.</p>
+        </section>
+    </main>
+    <footer></footer>
 </body>
 </html>

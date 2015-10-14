@@ -120,6 +120,7 @@ public class AppNotificationService extends IntentService {
                     .setAutoCancel(true)
                     .build();
 
+            notificationManager.cancel(SINGLE, 0);
             notificationManager.notify(name, 0, notification);
         } else {
             Notification notification = new NotificationCompat.Builder(this)

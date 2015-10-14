@@ -31,4 +31,10 @@ public class LaunchActivity extends ActionBarActivity {
             tv1.setText("Launching " + appName);
         }
     }
+
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        finish();
+    }
 }
