@@ -36,7 +36,6 @@ public class LaunchAppService extends IntentService {
         } else {
             CheckRootActivity.displayRootStatus(context);
         }
-        this.stopSelf();
     }
 
     protected void launchApp(ManagedApp app) {
@@ -71,5 +70,6 @@ public class LaunchAppService extends IntentService {
                     app.getAppTitle(),
                     false);
         }
+        this.stopSelf();
     }
 }
