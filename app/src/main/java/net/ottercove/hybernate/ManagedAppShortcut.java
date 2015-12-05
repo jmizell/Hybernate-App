@@ -40,12 +40,7 @@ public class ManagedAppShortcut extends ActionBarActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 itemValue = (AppListModel) listView.getItemAtPosition(position);
-
-                if(itemValue.getSystemApp()) {
-                    confirmDisable();
-                } else {
-                    disableApp();
-                }
+                confirmDisable();
             }
         });
     }
@@ -117,7 +112,7 @@ public class ManagedAppShortcut extends ActionBarActivity {
 
     private void confirmDisable() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(this.getString(R.string.disable_system_app_dialog));
+        builder.setTitle(this.getString(R.string.disable_app_dialog));
         builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 disableApp();

@@ -30,4 +30,5 @@
     <string name="title_activity_video_demo">VideoDemoActivity</string>
 
     <string name="disable_system_app_dialog">Disable System App?</string>
+    <string name="disable_app_dialog">Disable App?</string>
 </resources>
