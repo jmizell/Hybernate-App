@@ -1,5 +1,5 @@
 # Hybernate-App
-Hybernate allows you to create shortcuts that automatically enable, and disable applications on launch. You will need a home screen app that supports creating shortcuts. Tapping shortcuts created with Hybernate will enable the app, and launch. When finished you can click on the notification to disable.
+Hybernate allows you to create shortcuts that automatically enable, and disable applications on launch. Tapping shortcuts created with Hybernate will enable the app, and launch. When finished you can click on the notification to disable.
 
 Tested and working with.
 
